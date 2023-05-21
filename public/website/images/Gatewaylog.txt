@@ -1,0 +1,17 @@
+Aug 21 03:28:04 DHCP lease IP 192.168.0.100 to DESKTOP-NPQ9IUG 20-e7-17-00-92-44<br>
+Aug 21 03:28:04 Authentication Success 20-e7-17-00-92-44<br>
+Aug 21 03:28:04 Authenticating...... 20-e7-17-00-92-44<br>
+Aug 21 03:13:03 DHCP lease IP 192.168.0.100 to DESKTOP-NPQ9IUG 20-e7-17-00-92-44<br>
+Aug 21 03:12:57 Authentication Success 20-e7-17-00-92-44<br>
+Aug 21 03:12:57 Authenticating...... 20-e7-17-00-92-44<br>
+Aug 21 03:11:09 System started <br>
+Aug 21 03:11:06 AP 2.4GHz mode Ready. Channel : 1 TxRate : best SSID : WISH <br>
+Aug 21 03:11:06 Access Point: WISH started at channel 1 <br>
+Aug 21 03:11:05 Remote management is disabled. <br>
+Aug 21 03:11:05 Anti-spoofing enabled. <br>
+Aug 21 03:11:05 Block WAN PING disabled. <br>
+Aug 21 03:11:05 URL Blocking disabled. <br>
+Aug 21 03:11:05 RTSP ALG enabled. <br>
+Aug 21 03:11:05 VPN (IPsec) Pass-Through enabled. <br>
+Aug 21 03:11:05 VPN (PPTP) Pass-Through enabled. <br>
+Aug 21 03:11:05 VPN (L2TP) Pass-Through enabled. <br>
