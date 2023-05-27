@@ -1,5 +1,6 @@
 @extends('website.index')
 @section('content')
+
     <section id="home" class="slider-area">
         <div class="bend niceties preview-2">
             <div id="ensign-nivoslider" class="slides">

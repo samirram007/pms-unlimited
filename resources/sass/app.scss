@@ -1,8 +1,20 @@
 // Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+// @import url('https://fonts.bunny.net/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback");
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+// <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
+
+
+@import 'admin-lte/plugins/fontawesome-free/css/all.min.css';
+@import 'admin-lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css';
+@import 'admin-lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css';
+@import 'admin-lte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css';
+@import 'toastr/build/toastr.min.css';
+@import 'admin-lte/dist/css/adminlte.min.css';
+

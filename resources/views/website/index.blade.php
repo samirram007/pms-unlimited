@@ -38,11 +38,15 @@
     height: 100%;
     z-index: -1;">
       <div id="preloader"></div>
+      @include('website.pages.login_as')
     <div class="" style="background-color:rgba(27,61,12,0.32);
 
     margin-top:0px; padding-top:0px; border-top:0px solid rgba(200,255,0,1.00); min-height:900px;">
+
 @include('website.layouts.header')
+
 @yield('content')
+
 {{-- @include('website.pages.landing') --}}
 @include('website.layouts.footer')
 

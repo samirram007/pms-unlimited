@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -17,7 +18,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -36,5 +37,111 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:employee')->except('logout');
+        $this->middleware('guest:doctor')->except('logout');
+        $this->middleware('guest:patient')->except('logout');
+        $this->middleware('guest:associate')->except('logout');
     }
+
+//==========Admin Login Begin ================
+    public function showAdminLoginForm()
+    {
+        return view('auth.login', ['route' => route('admin.login-view'), 'title' => 'Admin']);
+    }
+
+    public function adminLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        if (\Auth::guard('admin')->attempt($request->only('email', 'password'), $request->get('remember'))) {
+            return redirect()->intended('/admin/dashboard');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+//========= Admin Login End =============
+
+//==========Employee Login Begin ================
+    public function showEmployeeLoginForm()
+    {
+        return view('auth.login', ['route' => route('employee.login-view'), 'title' => 'Employee']);
+    }
+
+    public function employeeLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        if (\Auth::guard('employee')->attempt($request->only('email', 'password'), $request->get('remember'))) {
+            return redirect()->intended('/employee/dashboard');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+//========= Employee Login End =============
+
+//==========Doctor Login Begin ================
+    public function showDoctorLoginForm()
+    {
+        return view('auth.login', ['route' => route('doctor.login-view'), 'title' => 'Doctor']);
+    }
+
+    public function doctorLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        if (\Auth::guard('doctor')->attempt($request->only('email', 'password'), $request->get('remember'))) {
+            return redirect()->intended('/doctor/dashboard');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+//========= Doctor Login End =============
+
+//==========Patient Login Begin ================
+    public function showPatientLoginForm()
+    {
+        return view('auth.login', ['route' => route('patient.login-view'), 'title' => 'Patient']);
+    }
+
+    public function patientLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        if (\Auth::guard('patient')->attempt($request->only('email', 'password'), $request->get('remember'))) {
+            return redirect()->intended('/patient/dashboard');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+//========= Patient Login End =============
+
+//==========Associate Login Begin ================
+    public function showAssociateLoginForm()
+    {
+        return view('auth.login', ['route' => route('associate.login-view'), 'title' => 'Associate']);
+    }
+
+    public function associateLogin(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+        ]);
+        if (\Auth::guard('associate')->attempt($request->only('email', 'password'), $request->get('remember'))) {
+            return redirect()->intended('/associate/dashboard');
+        }
+
+        return back()->withInput($request->only('email', 'remember'));
+    }
+//========= Associate Login End =============
+
 }

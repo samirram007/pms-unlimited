@@ -40,6 +40,26 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'employee' => [
+            'driver' => 'session',
+            'provider' => 'employees',
+        ],
+        'patient' => [
+            'driver' => 'session',
+            'provider' => 'patients',
+        ],
+        'doctor' => [
+            'driver' => 'session',
+            'provider' => 'doctors',
+        ],
+        'associate' => [
+            'driver' => 'session',
+            'provider' => 'associates',
+        ],
     ],
 
     /*
@@ -63,6 +83,26 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
+        ],
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Employee::class,
+        ],
+        'patients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Patient::class,
+        ],
+        'doctors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Doctor::class,
+        ],
+        'associates' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Associate::class,
         ],
 
         // 'users' => [
@@ -97,6 +137,36 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'employees' => [
+            'provider' => 'employees',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'patients' => [
+            'provider' => 'patients',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'doctors' => [
+            'provider' => 'doctors',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'associates' => [
+            'provider' => 'associates',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*
@@ -110,6 +180,6 @@ return [
     |
     */
 
-    'password_timeout' => 10800,
+    'password_timeout' => 10800000,
 
 ];

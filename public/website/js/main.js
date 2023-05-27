@@ -96,6 +96,12 @@
     } else {
       $('.back-to-top').fadeOut('slow');
     }
+    if ($(this).scrollTop() > 1){
+        $('#sticker').addClass("position-sticky");
+      }
+      else{
+        $('#sticker').removeClass("position-sticky");
+      }
   });
 
   $('.back-to-top').click(function(){

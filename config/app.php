@@ -70,7 +70,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'ASIA/KOLKATA',
 
     /*
     |--------------------------------------------------------------------------
@@ -168,6 +168,11 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\RepositoryServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+        niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        Riskihajar\Terbilang\TerbilangServiceProvider::class,
     ])->toArray(),
 
     /*
@@ -182,6 +187,10 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+        'Terbilang' => Riskihajar\Terbilang\Facades\Terbilang::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
