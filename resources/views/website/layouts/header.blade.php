@@ -1,4 +1,4 @@
-<header>
+<header class="">
     <!-- header-area start -->
     <div id="sticker" class="header-area">
         <div class="">
@@ -78,11 +78,14 @@
                                         </li>
                                     @else
                                         <li>
-                                            <a href="{{ route('login') }}"
+                                            <a href class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500" data-toggle="modal" data-target="#exampleModalCenter">
+                                                Log In
+                                              </a>
+                                            {{-- <a href="{{ route('login') }}"
                                                 class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log
-                                                in</a>
+                                                in</a> --}}
                                         </li>
-                                        <li>
+                                        <li class="sr-only">
                                             @if (Route::has('register'))
                                                 <a href="{{ route('register') }}"
                                                     class="ml-4 font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>

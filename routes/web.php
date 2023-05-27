@@ -1,8 +1,14 @@
 <?php
 
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+=======
+>>>>>>> d7f1f16b3af3923998cf2523de66afa94aa2c9b3
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,45 +19,25 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::middleware('guest')->group(function () {
-    Route::get('/', function () {
-        return view('website.pages.landing');
-    })->name('landing');
-    // Route::get('/services', function () {
-    //     return view('website.pages.services');
-    // });
-    Route::get('/doctors', function () {
-        return view('website.pages.doctors');
-    })->name('doctors');
-    Route::get('/home-services', function () {
-        return view('website.pages.home_services');
-    })->name('home_services');
-    Route::get('/gallery', function () {
-        return view('website.pages.gallery');
-    })->name('gallery');
-    Route::get('/services/pathology', function () {
-        return view('website.pages.services.pathology');
-    })->name('services_pathology');
-    Route::get('/services/radiology', function () {
-        return view('website.pages.services.radiology');
-    })->name('services_radiology');
-    Route::get('/services/cardiology', function () {
-        return view('website.pages.services.cardiology');
-    })->name('services_cardiology');
-    // Route::get('/contact-us', function () {
-    //     return view('website.pages.contact_us');
-    // });
-    // Route::get('/privacy', function () {
-    //     return view('website.pages.privacy');
-    // });
-});
-// Route::middleware('guest')->get('/', function () {
-//     return view('website.pages.landing');
-// });
 
+Route::get('/welcome', function () {
+    return view('welcome');
+});
+require __DIR__.'/website.php';
 Auth::routes();
 
+require __DIR__.'/admin.php';
+require __DIR__.'/employee.php';
+require __DIR__.'/patient.php';
+require __DIR__.'/doctor.php';
+require __DIR__.'/associate.php';
+require __DIR__.'/command.php';
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
 
 Route::middleware('auth')->group(function () {
     Route::view('about', 'about')->name('about');

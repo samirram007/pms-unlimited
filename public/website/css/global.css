@@ -170,3 +170,14 @@ input, input[type="text"],textarea,select{
         font-family: "Gill Sans", "Gill Sans MT", "Myriad Pro", "DejaVu Sans Condensed", Helvetica, Arial, "sans-serif"!important;
         font-size:1.75rem!important;
     }
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    .position-fixed{
+        position: fixed;
+    }
+    .position-sticky{
+        position: sticky;
+    }
+
+
