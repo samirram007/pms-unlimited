@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Module\CompanyController;
+use App\Http\Controllers\Module\ItemController;
+
 Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::group(['middleware' => ['guest:admin']],function(){
@@ -26,6 +28,12 @@ Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/edit/{id}',[CompanyController::class,'edit'])->name('edit');
             Route::post('/update/{id}',[CompanyController::class,'update'])->name('update');
             Route::get('/delete/{id}',[CompanyController::class,'destroy'])->name('delete');
+        });
+
+        Route::group(['prefix' => 'item', 'as' => 'item.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('test_index');
+            Route::get('/create',[ItemController::class,'create'])->name('test_create');
+            Route::post('/store',[ItemController::class, 'store'])->name('test_store');
         });
 
 

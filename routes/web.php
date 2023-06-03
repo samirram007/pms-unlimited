@@ -1,12 +1,11 @@
 <?php
 
-<<<<<<< HEAD
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-=======
->>>>>>> d7f1f16b3af3923998cf2523de66afa94aa2c9b3
-
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 /*
