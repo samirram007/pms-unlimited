@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Company;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class Associate extends Authenticatable
 {
@@ -43,14 +44,11 @@ class Associate extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function lab_centre()
+    public function company()
     {
-        return $this->belongsTo(LabCentre::class);
+        return $this->belongsTo(Company::class);
     }
-    public function collection_centre()
-    {
-        return $this->belongsTo(CollectionCentre::class);
-    }
+
     public function patients()
     {
         return $this->hasMany(Patient::class)->withDefault([

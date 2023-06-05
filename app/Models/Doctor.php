@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Company;
 use App\Models\LabCentre;
 use App\Models\Department;
 use App\Models\Designation;
@@ -46,9 +47,9 @@ class Doctor extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function lab_centre()
+    public function company()
     {
-        return $this->belongsTo(LabCentre::class);
+        return $this->belongsTo(Company::class);
     }
     public function designation()
     {
