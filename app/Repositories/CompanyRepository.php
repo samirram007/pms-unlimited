@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories;
+use Exception;
 use App\Models\Company;
 use App\Models\CompanyType;
 use Illuminate\Http\Request;
