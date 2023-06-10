@@ -49,11 +49,13 @@ class Handler extends ExceptionHandler
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
+
         if ($request->expectsJson()) {
             return response()->json(['message' => 'Unauthenticated.'], 401);
         }
 
         if ($request->is('admin') || $request->is('admin/*')) {
+
             return redirect()->guest('/admin');
         }
         if ($request->is('employee') || $request->is('employee/*')) {
@@ -69,6 +71,6 @@ class Handler extends ExceptionHandler
             return redirect()->guest('/associate');
         }
 
-        return redirect()->guest(route('login'));
+        return redirect()->guest(route('landing'));
     }
 }

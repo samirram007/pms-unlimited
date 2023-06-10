@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\ItemGroup::class)->nullable();
             $table->foreignIdFor(App\Models\ItemCategory::class)->nullable();
             $table->boolean('has_method')->default(true);
-            $table->integer('test_unit_id')->nullable();
+            $table->foreignIdFor(App\Models\ItemUnit::class)->nullable();
             $table->string('specimen_type')->nullable();
             $table->string('test_method')->nullable();
             $table->string('test_method_description')->nullable();

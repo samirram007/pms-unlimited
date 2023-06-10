@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::group([ 'prefix' => 'doctor', 'as' => 'doctor.'], function () {
 
     Route::group(['middleware' => ['guest:doctor']],function(){
+        Route::post('logout', [LoginController::class, 'doctorLogout']) ->name('logout');
         Route::get('/',[LoginController::class,'showDoctorLoginForm'])->name('login-view');
         Route::post('/',[LoginController::class,'doctorLogin'])->name('login');
 

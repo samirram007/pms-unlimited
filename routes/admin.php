@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Module\ItemController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Module\CompanyController;
-use App\Http\Controllers\Module\ItemController;
 
 Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
 
@@ -18,7 +19,13 @@ Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
     });
 
     Route::group(['middleware' => ['auth:admin']],function(){
-        Route::get('/dashboard',function(){return view('admin');});
+
+        // Route::post('logout',function(){
+        //     dd('abc');
+        // }) ->name('logout');
+         Route::post('logout', [LogoutController::class, 'logout']) ->name('logout');
+        //  Route::get('logout', [LoginController::class, 'adminLogout']) ->name('logout');
+        Route::get('/dashboard',function(){return view('admin');})->name('dashboard');
 
         Route::group([ 'prefix' => 'company', 'as' => 'company.'], function () {
             Route::get('/',[CompanyController::class,'index'])->name('index');
@@ -36,6 +43,76 @@ Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::post('/store',[ItemController::class, 'store'])->name('test_store');
         });
 
+        Route::group(['prefix' => 'test', 'as' => 'test.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/index_body',[ItemController::class,'index_body'])->name('index_body');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'package', 'as' => 'package.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'test_group', 'as' => 'test_group.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'test_category', 'as' => 'test_category.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'test_unit', 'as' => 'test_unit.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'employee', 'as' => 'employee.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'doctor', 'as' => 'doctor.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'patient', 'as' => 'patient.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'associate', 'as' => 'associate.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'designation', 'as' => 'designation.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'department', 'as' => 'department.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'report', 'as' => 'report.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('collection');
+        });
+
+        Route::group(['prefix' => 'discount_type', 'as' => 'discount_type.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
+        Route::group(['prefix' => 'payment_mode', 'as' => 'payment_mode.'], function(){
+            Route::get('/',[ItemController::class, 'index'])->name('index');
+            Route::get('/create',[ItemController::class,'create'])->name('create');
+            Route::post('/store',[ItemController::class, 'store'])->name('store');
+        });
 
     });
 });

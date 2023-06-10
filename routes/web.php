@@ -23,15 +23,15 @@ Route::get('/welcome', function () {
     return view('welcome');
 });
 require __DIR__.'/website.php';
-Auth::routes();
 
+Route::group(['middleware' => 'prevent-back-history'],function(){
 require __DIR__.'/admin.php';
 require __DIR__.'/employee.php';
 require __DIR__.'/patient.php';
 require __DIR__.'/doctor.php';
 require __DIR__.'/associate.php';
 require __DIR__.'/command.php';
-
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -45,4 +45,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('profile', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+});
+
 });

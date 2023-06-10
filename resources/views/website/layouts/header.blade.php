@@ -64,13 +64,15 @@
                                 <li>
                                     <a class="page-scroll" href="{{ route('landing') }}/#privacy">Privacy</a>
                                 </li>
-                                @if (Route::has('login'))
+                                {{-- @dd(Route::has('login')) --}}
+                                {{-- @if (Route::has('login')) --}}
+
                                     @auth
                                         <li>
 
 
 
-                                            <a href="{{ url('/home') }}"
+                                            <a href="{{ url('/landing') }}"
                                                 class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Home</a>
 
 
@@ -92,7 +94,7 @@
                                             @endif
                                         </li>
                                     @endauth
-                                @endif
+                                {{-- @endif --}}
                             </ul>
                         </div>
                         <!-- navbar-collapse -->

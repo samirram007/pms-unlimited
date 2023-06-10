@@ -12,19 +12,40 @@ class ItemController extends Controller
 {
     public $role;
     protected $itemService;
+    public function __invoke(Request $request)
+    {
+
+    }
     public function __construct(ItemService $itemService)
     {
+
+         //       $this->middleware('auth');
         $this->itemService = $itemService;
         $this->role = explode('.', Route::current()->getName())[0];
     }
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        return view('modules.test.test_index');
-    }
+        $data['role'] = $this->role;
+        $data['collections'] = $this->itemService->getItemAll()['data'];
 
+        return view('modules.test.index', $data);
+    }
+    public function index_body()
+    {
+        $data['role'] = $this->role;
+        $data['collections'] = $this->itemService->getItemAll()['data'];
+        //dd($data);
+        $GetView= view('modules.test.index_body', $data)->render();
+        //dd($GetView);
+        return response()->json([
+            'status' => true,
+            'html' => $GetView,
+        ]);
+    }
     /**
      * Show the form for creating a new resource.
      */

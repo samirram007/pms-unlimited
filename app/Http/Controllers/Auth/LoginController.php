@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -37,7 +39,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->middleware('guest:admin')->except('logout');
+        $this->middleware('guest:admin')->except('adminLogout');
         $this->middleware('guest:employee')->except('logout');
         $this->middleware('guest:doctor')->except('logout');
         $this->middleware('guest:patient')->except('logout');
@@ -62,6 +64,9 @@ class LoginController extends Controller
 
         return back()->withInput($request->only('email', 'remember'));
     }
+
+
+
 //========= Admin Login End =============
 
 //==========Employee Login Begin ================
@@ -81,6 +86,14 @@ class LoginController extends Controller
         }
 
         return back()->withInput($request->only('email', 'remember'));
+    }
+    public function employeeLogout(Request $request)
+    {
+
+        \Auth::guard('employee')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->back();
     }
 //========= Employee Login End =============
 
@@ -102,6 +115,14 @@ class LoginController extends Controller
 
         return back()->withInput($request->only('email', 'remember'));
     }
+    public function doctorLogout(Request $request)
+    {
+
+        \Auth::guard('doctor')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->back();
+    }
 //========= Doctor Login End =============
 
 //==========Patient Login Begin ================
@@ -122,6 +143,14 @@ class LoginController extends Controller
 
         return back()->withInput($request->only('email', 'remember'));
     }
+    public function patientLogout(Request $request)
+    {
+
+        \Auth::guard('patient')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->back();
+    }
 //========= Patient Login End =============
 
 //==========Associate Login Begin ================
@@ -141,6 +170,14 @@ class LoginController extends Controller
         }
 
         return back()->withInput($request->only('email', 'remember'));
+    }
+    public function associateLogout(Request $request)
+    {
+
+        \Auth::guard('associate')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->back();
     }
 //========= Associate Login End =============
 

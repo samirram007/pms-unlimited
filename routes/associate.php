@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 Route::group([ 'prefix' => 'associate', 'as' => 'associate.'], function () {
 
     Route::group(['middleware' => ['guest:associate']],function(){
+        Route::post('logout', [LoginController::class, 'associateLogout']) ->name('logout');
         Route::get('/',[LoginController::class,'showAssociateLoginForm'])->name('login-view');
         Route::post('/',[LoginController::class,'associateLogin'])->name('login');
 

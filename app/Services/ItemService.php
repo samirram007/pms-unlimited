@@ -13,6 +13,17 @@ class ItemService implements ItemServiceInterface
     {
         $this->itemRepository = $itemRepository;
     }
+    public function getItemById($itemId):array
+    {
+             $item = $this->itemRepository->getItemById($itemId);
+             return $item;
+
+    }
+    public function getItemAll():array
+    {
+     $items = $this->itemRepository->getItemAll();
+     return $items ;
+    }
     public function storeItem($data)
     {
         return $this->itemRepository->storeItem($data);

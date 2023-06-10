@@ -127,18 +127,7 @@
                 "autoWidth": false,
                 "responsive": true,
             });
-            $('#table').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "dom": '<"pull-left"f><"pull-right"l>tip'
-            });
-            $('#table_paginate').addClass('pull-left');
-            $('#table_info').addClass('pull-right');
+
         });
     </script>
     <style>
