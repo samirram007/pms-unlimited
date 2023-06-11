@@ -27,24 +27,22 @@ class ItemController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index(Request $request)
     {
         $data['role'] = $this->role;
-        $data['collections'] = $this->itemService->getItemAll()['data'];
+       // $data['collections'] = $this->itemService->getItemAll($request)['data'];
 
         return view('modules.test.index', $data);
     }
-    public function index_body()
+    public function index_body(Request $request)
     {
+        //dd($request);
         $data['role'] = $this->role;
-        $data['collections'] = $this->itemService->getItemAll()['data'];
-        //dd($data);
-        $GetView= view('modules.test.index_body', $data)->render();
-        //dd($GetView);
-        return response()->json([
-            'status' => true,
-            'html' => $GetView,
-        ]);
+        $response = $this->itemService->getItemAll($request);
+        return response()->json($response);
+        //echo json_encode($response);
+        //exit;
+
     }
     /**
      * Show the form for creating a new resource.
@@ -110,9 +108,16 @@ class ItemController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $data['role'] = $this->role;
+        $data['editData'] = $this->itemService->getItemById($id);
+        $GetView = view('modules.test.test_edit',$data)->render();
+
+        return response()->json([
+            'status' => 200,
+            'html' => $GetView,
+        ]);
     }
 
     /**

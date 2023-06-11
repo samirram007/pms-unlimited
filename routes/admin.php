@@ -48,6 +48,9 @@ Route::group([ 'prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('/index_body',[ItemController::class,'index_body'])->name('index_body');
             Route::get('/create',[ItemController::class,'create'])->name('create');
             Route::post('/store',[ItemController::class, 'store'])->name('store');
+            Route::get('/edit/{id}',[ItemController::class,'edit'])->name('edit');
+            Route::post('/update/{id}',[ItemController::class,'update'])->name('update');
+            Route::get('/delete/{id}',[ItemController::class,'destroy'])->name('delete');
         });
         Route::group(['prefix' => 'package', 'as' => 'package.'], function(){
             Route::get('/',[ItemController::class, 'index'])->name('index');

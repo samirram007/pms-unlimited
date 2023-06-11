@@ -20,22 +20,20 @@
                     </div>
                     <div class="card-body">
 
-                        <table id="table" class="table table-bordered table-hover dataTable dtr-inline">
+                        <table id="testTable" class="table table-bordered table-hover dataTable dtr-inline">
 
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>{{__('Id')}}</th>
                                     <th>{{ __('Name') }}</th>
-                                    <th>{{ __('Type') }}</th>
-                                    <th>{{ __('Email') }}</th>
-                                    <th>{{ __('Phone') }}</th>
-                                    <th>{{ __('Address') }}</th>
-                                    <th>{{ __('Action') }}</th>
+                                    <th>{{ __('Test Category') }}</th>
+                                    <th>{{ __('Test Group') }}</th>
+                                    <th>{{ __('Cost') }}</th>
+                                    <th>{{ __('Amount') }}</th>
+                                    <th>{{__('Action')}}</th>
                                 </tr>
                             </thead>
-                            <tbody id="index_body">
-                                {{-- @include('modules.company.index_body') --}}
-                            </tbody>
+
                         </table>
 
 
@@ -49,18 +47,52 @@
 
 @section('scripts')
     <script>
-        $('#table').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-            "dom": '<"pull-left"f><"pull-right"l>tip'
+        $(document).ready(function() {
+            // DataTable
+            $('#testTable').DataTable({
+                processing: true,
+                serverSide: true,
+                "autoWidth": false,
+                "responsive": true,
+                ajax: "{{ route('admin.test.index_body') }}",
+                columns: [{
+                        data: 'id'
+                    },
+                    {
+                        data: 'name'
+                    },
+                    {
+                        data: 'item_category'
+                    },
+                    {
+                        data: 'item_group'
+                    },
+                    {
+                        data: 'cost'
+                    },
+                    {
+                        data: 'amount'
+                    },
+
+                    {
+                        data:'action'
+                    }
+                ]
+            });
         });
-        $('#table_paginate').addClass('pull-left');
-        $('#table_info').addClass('pull-right');
+
+        // $('#table').DataTable({
+        //     "paging": true,
+        //     "lengthChange": false,
+        //     "searching": true,
+        //     "ordering": true,
+        //     "info": true,
+        //     "autoWidth": false,
+        //     "responsive": true,
+        //     "dom": '<"pull-left"f><"pull-right"l>tip'
+        // });
+        // $('#table_paginate').addClass('pull-left');
+        // $('#table_info').addClass('pull-right');
 
         function getIndexData() {
 
@@ -73,8 +105,8 @@
                 }
             });
         }
-        setTimeout(() => {
-            getIndexData();
-        }, 500);
+        // setTimeout(() => {
+        //     getIndexData();
+        // }, 500);
     </script>
 @endsection
