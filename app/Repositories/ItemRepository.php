@@ -13,11 +13,15 @@ class ItemRepository implements ItemRepositoryInterface
     {
         return Item::with('item_category')->find($itemId)->toArray();
     }
-    public function getItemAll($request)
+    public function getItemAll()
+    {
+        $list=Item::with('item_category')->toArray();
+        return $list;
+    }
+    public function getItemPagination($request)
     {
         $this->role = explode('.', Route::current()->getName())[0];
-        // $list=Item::with('item_category')->paginate(10)->toArray();
-        // return $list;
+
         $draw = $request->get('draw');
         $start = $request->get("start");
         $rowperpage = $request->get("length"); // Rows display per page
@@ -104,15 +108,40 @@ class ItemRepository implements ItemRepositoryInterface
             $item->discount = $data->discount;
             $item->rate = $data->rate;
             $item->duration = $data->duration;
+            $item->item_group_id = $data->item_group_id;
+            $item->item_category_id = $data->item_category_id;
+
+            $item->save();
+            //dd($item);
+            // return $item;
+
+        }catch(Exception $e){
+           // dd($e);
+            return $e->getMessage();
+        }
+    }
+    public function updateItem($data,$id)
+    {
+        try{
+
+            $item = Item::find($id);
+            $item->name = $data->name;
+            $item->alias = $data->alias;
+            $item->code = $data->code;
+            $item->description = $data->description;
+            $item->cost = $data->cost;
+            $item->discount = $data->discount;
+            $item->rate = $data->rate;
+            $item->duration = $data->duration;
             $item->test_group_id = $data->test_group_id;
             $item->test_category_id = $data->test_category_id;
 
             $item->save();
-            dd($item);
+            //dd($item);
             // return $item;
 
         }catch(Exception $e){
-            dd($e);
+           // dd($e);
             return $e->getMessage();
         }
     }

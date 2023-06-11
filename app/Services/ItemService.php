@@ -19,14 +19,24 @@ class ItemService implements ItemServiceInterface
              return $item;
 
     }
-    public function getItemAll($request)
+    public function getItemAll()
     {
-     $items = $this->itemRepository->getItemAll($request);
-     return $items ;
+     $list = $this->itemRepository->getItemAll();
+     return $list ;
     }
+    public function getItemPagination($request)
+    {
+     $list = $this->itemRepository->getItemPagination($request);
+     return $list ;
+    }
+
     public function storeItem($data)
     {
         return $this->itemRepository->storeItem($data);
+    }
+    public function updateItem($data,$id)
+    {
+        return $this->itemRepository->updateItem($data,$id);
     }
 }
 

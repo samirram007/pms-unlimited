@@ -3,26 +3,23 @@
 namespace App\Repositories;
 
 use Exception;
-use App\Models\ItemGroup;
+use App\Models\ItemCategory;
 use Illuminate\Support\Facades\Route;
-use App\Repositories\Interfaces\ItemGroupRepositoryInterface;
+use App\Repositories\Interfaces\ItemCategoryRepositoryInterface;
 
-class ItemGroupRepository implements ItemGroupRepositoryInterface
+class ItemCategoryRepository implements ItemCategoryRepositoryInterface
 {
-    public function getItemGroupById($itemGroupId):array
+    public function getItemCategoryById($itemCategoryId):array
     {
-        return ItemGroup::with('department')->find($itemGroupId)->toArray();
+        return ItemCategory::with('item_group')->find($itemCategoryId)->toArray();
     }
 
-
-    public function getItemGroupAll()
+    public function getItemCategoryAll()
     {
-        $list=ItemGroup::with('department')->get()->toArray();
+        $list=ItemCategory::with('item_group')->get()->toArray();
         return $list;
     }
-
-
-    public function getItemGroupPagination($request)
+    public function getItemCategoryPagination($request)
     {
         $this->role = explode('.', Route::current()->getName())[0];
 
@@ -41,13 +38,13 @@ class ItemGroupRepository implements ItemGroupRepositoryInterface
         $searchValue = $search_arr['value']; // Search value
 
         // Total records
-        $totalRecords = ItemGroup::select('count(*) as allcount')->count();
-        $totalRecordswithFilter = ItemGroup::select('count(*) as allcount')->where('name', 'like', '%' .$searchValue . '%')->count();
+        $totalRecords = ItemCategory::select('count(*) as allcount')->count();
+        $totalRecordswithFilter = ItemCategory::select('count(*) as allcount')->where('name', 'like', '%' .$searchValue . '%')->count();
 
         // Fetch records
-        $records = ItemGroup::with('department')->orderBy($columnName,$columnSortOrder)
-            ->where('item_groups.name', 'like', '%' .$searchValue . '%')
-            ->select('item_groups.*')
+        $records = ItemCategory::with('item_group')->orderBy($columnName,$columnSortOrder)
+            ->where('item_categories.name', 'like', '%' .$searchValue . '%')
+            ->select('item_categories.*')
             ->skip($start)
             ->take($rowperpage)
             ->get();
@@ -57,18 +54,19 @@ class ItemGroupRepository implements ItemGroupRepositoryInterface
         $sno = $start+1;
 
         foreach($records as $record){
-            $editRoute=route($this->role.'.item_group.edit',$record->id);
-            $deleteRoute=route($this->role.'.item_group.delete',$record->id);
+            $editRoute=route($this->role.'.item_category.edit',$record->id);
+            $deleteRoute=route($this->role.'.item_category.delete',$record->id);
             $id = $record->id;
             $name = $record->name;
-            $department = $record->department->name;
+            $item_group = $record->item_group->name;
+            $has_method = $record->has_method;
             //$updateButton = "<button class='btn btn-sm btn-info updateUser' data-id='".$record->id."' data-toggle='modal' data-target='#updateModal' >Update</button>";
-            $updateButton ='<a href="javascript:" data-param="1" data-url="'.$editRoute.'" data-size="md" title="Edit Item Group" class="edit btn btn-info btn-sm btn-rounded">
+            $updateButton ='<a href="javascript:" data-param="1" data-url="'.$editRoute.'" data-size="md" title="Edit Item Category" class="edit btn btn-info btn-sm btn-rounded">
             <i class="fas fa-edit"></i>
             </a>';
             // Delete Button
             // $deleteButton = "<button class='btn btn-sm btn-danger deleteUser' data-id='".$record->id."'>Delete</button>";
-            $deleteButton = '<a href="javascript:" data-param="1" data-url="'.$deleteRoute.'" data-size="md" title="Delete Item Group" class="delete btn btn-danger btn-sm btn-rounded">
+            $deleteButton = '<a href="javascript:" data-param="1" data-url="'.$deleteRoute.'" data-size="md" title="Delete Item Category" class="delete btn btn-danger btn-sm btn-rounded">
             <i class="fas fa-trash"></i>
             </a>';
 
@@ -76,7 +74,8 @@ class ItemGroupRepository implements ItemGroupRepositoryInterface
             $data_arr[] = array(
                 "id" => $id,
                 "name" => $name,
-                "department" => $department
+                "item_group" => $item_group,
+                "has_method" => $has_method
             );
         }
 
@@ -91,15 +90,32 @@ class ItemGroupRepository implements ItemGroupRepositoryInterface
         // exit;
 
     }
-
-
-    public function storeItemGroup($data)
+    public function storeItemCategory($data)
     {
         try{
 
-            $item = new ItemGroup();
+            $item = new ItemCategory();
             $item->name = $data->name;
-            $item->department_id = $data->department_id;
+            $item->has_method = $data->has_method;
+            $item->item_group_id = $data->item_group_id;
+
+            $item->save();
+            //dd($item);
+            // return $item;
+
+        }catch(Exception $e){
+           // dd($e);
+            return $e->getMessage();
+        }
+    }
+    public function updateItemCategory($data,$id)
+    {
+        try{
+
+            $item = ItemCategory::find($id);
+            $item->name = $data->name;
+            $item->has_method = $data->has_method;
+            $item->item_group_id = $data->item_group_id;
 
             $item->save();
             //dd($item);
@@ -112,22 +128,9 @@ class ItemGroupRepository implements ItemGroupRepositoryInterface
     }
 
 
-    public function updateItemGroup($data,$id)
+    public function getItemCategoryByGroupId($itemGroupId)
     {
-        try{
-
-            $item = ItemGroup::find($id);
-            $item->name = $data->name;
-            $item->department_id = $data->department_id;
-
-            $item->save();
-            //dd($item);
-            // return $item;
-
-        }catch(Exception $e){
-           // dd($e);
-            return $e->getMessage();
-        }
+        return ItemCategory::with('item_group')->where('item_group_id',$itemGroupId)->get()->toArray();
     }
 }
 

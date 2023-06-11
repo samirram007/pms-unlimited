@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Module;
 
-use App\Http\Controllers\Controller;
-use App\Services\ItemService;
 use Illuminate\Http\Request;
+use App\Services\ItemService;
+use App\Services\ItemUnitService;
+use App\Services\ItemGroupService;
+use App\Http\Controllers\Controller;
+use App\Services\ItemCategoryService;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,15 +15,26 @@ class ItemController extends Controller
 {
     public $role;
     protected $itemService;
+    protected $itemCategoryService;
+    protected $itemGroupService;
+    protected $itemUnitService;
     public function __invoke(Request $request)
     {
 
     }
-    public function __construct(ItemService $itemService)
+    public function __construct(
+        ItemService $itemService,
+        ItemCategoryService $itemCategoryService,
+        ItemGroupService $itemGroupService,
+        ItemUnitService $itemUnitService
+        )
     {
 
          //       $this->middleware('auth');
         $this->itemService = $itemService;
+        $this->itemCategoryService = $itemCategoryService;
+        $this->itemGroupService = $itemGroupService;
+        $this->itemUnitService = $itemUnitService;
         $this->role = explode('.', Route::current()->getName())[0];
     }
     /**
@@ -38,7 +52,7 @@ class ItemController extends Controller
     {
         //dd($request);
         $data['role'] = $this->role;
-        $response = $this->itemService->getItemAll($request);
+        $response = $this->itemService->getItemPagination($request);
         return response()->json($response);
         //echo json_encode($response);
         //exit;
@@ -50,6 +64,9 @@ class ItemController extends Controller
     public function create()
     {
         $data['role'] = $this->role;
+        $data['item_categories']= $this->itemCategoryService->getItemCategoryAll();
+        $data['item_groups']= $this->itemGroupService->getItemGroupAll();
+        $data['item_units']= $this->itemUnitService->getItemUnitAll();
         $GetView = view('modules.test.test_create',$data)->render();
 
         return response()->json([
@@ -134,5 +151,16 @@ class ItemController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function GetCategoryByGroupID(Request $request)
+    {
+        //dd($request['test_group_id']);
+
+        $item_group_id = $request['item_group_id'];
+        $response = $this->itemCategoryService->getItemCategoryByGroupId($item_group_id);
+       // $response = TestCategory::where('item_group_id', $item_group_id)->get();
+        return response()->json($response);
+        //return response()->json(["status" => true, "data" => $response]);
     }
 }
