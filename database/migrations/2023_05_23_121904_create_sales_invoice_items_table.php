@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\SalesInvoice::class)->unsigned();
             $table->foreignIdFor(App\Models\Item::class)->unsigned();
             $table->integer('is_package')->default(0); // 0 = test, 1 = package
-            $table->decimal('test_cost')->nullable();
+            $table->decimal('item_cost')->nullable();
             $table->decimal('discount')->nullable();
             $table->decimal('tax')->nullable();
             $table->decimal('amount')->nullable();
